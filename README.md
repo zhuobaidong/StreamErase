@@ -20,19 +20,19 @@ Official PyTorch implementation of the paper:
 
 <img src="assets/teaser.png" alt=""/>
 
-# Inference
+# Quick Start
 
-### Installation
+### 1. Installation
 ```bash
-conda create -n causal_forcing python=3.10 -y
-conda activate causal_forcing
+conda create -n StreamErase python=3.10 -y
+conda activate StreamErase
 pip install -r requirements.txt
 pip install git+https://github.com/openai/CLIP.git
 pip install flash-attn --no-build-isolation
 python setup.py develop
 ```
 
-### Download Checkpoints
+### 2. Download Checkpoints
 ```bash
 hf download Wan-AI/Wan2.1-T2V-1.3B  --local-dir wan_models/Wan2.1-T2V-1.3B
 hf download zhuobai/StreamErase model.pt --local-dir model_weights
