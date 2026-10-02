@@ -9,8 +9,9 @@ Official PyTorch implementation of the paper:
 [Xiantao Zhang](https://cn.linkedin.com/in/xiantao-zhang-66bb4317/)<sup>2</sup>,
 [Jinkui Ren](https://www.linkedin.com/in/jack-ren-2069968/)<sup>2</sup>,
 [Yinggui Wang](https://dblp.org/pid/136/1775.html)<sup>2</sup>,
-[Yue Ma]([https://songjiewu1.github.io/](https://mayuelala.github.io/))<sup>3</sup>,
+[Yue Ma](https://mayuelala.github.io/)<sup>3</sup>,
 [Linfeng Zhang](http://www.zhanglinfeng.tech/)<sup>4</sup>,
+<br>
 <sup>1</sup>WuHan University, <sup>2</sup>Alibaba Group, <sup>3</sup>The Hong Kong University of Science and Technology, <sup>4</sup>Shanghai Jiao Tong University
 <br>
 [ArXiv](https://arxiv.org/abs/2512.02899) | [Homepage](https://zhuobaidong.github.io/Glance/) | [Model🤗](https://huggingface.co/CSU-JPG/Glance) | [Demo](https://348d29f48ab953c1e8.gradio.live/)
