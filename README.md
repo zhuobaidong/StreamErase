@@ -48,6 +48,22 @@ python inference.py
 python inference_long.py
 ```
 
+# BibTeX
+```
+@misc{dong2025glanceacceleratingdiffusionmodels,
+      title={Glance: Accelerating Diffusion Models with 1 Sample}, 
+      author={Zhuobai Dong and Rui Zhao and Songjie Wu and Junchao Yi and Linjie Li and Zhengyuan Yang and Lijuan Wang and Alex Jinpeng Wang},
+      year={2025},
+      eprint={2512.02899},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2512.02899}, 
+}
+```
+
+# Contact
+If you have any questions, please feel free to reach me out at zhuobai@whu.edu.cn
+
 ### 测试时间
 ```bash
 python time.py
