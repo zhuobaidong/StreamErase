@@ -38,12 +38,12 @@ hf download Wan-AI/Wan2.1-T2V-1.3B  --local-dir wan_models/Wan2.1-T2V-1.3B
 hf download zhuobai/StreamErase model.pt --local-dir model_weights
 ```
 
-### Inference
+### 3. Inference
 ```bash
 python inference.py
 ```
 
-### Inference Long Video
+### 4. Long Video Inference
 ```bash
 python inference_long.py
 ```
