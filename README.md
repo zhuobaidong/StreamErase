@@ -1,3 +1,26 @@
+# Glance: One Sample Distillation Model
+
+Official PyTorch implementation of the paper:
+
+**Glance: Accelerating Diffusion Models with 1 Sample**
+<br>
+In ECCV 2026
+<br>
+[Zhuobai Dong](https://zhuobaidong.github.io/)<sup>1</sup>, 
+[Rui Zhao](https://ruizhaocv.github.io/)<sup>2</sup>,
+[Songjie Wu](https://songjiewu1.github.io/)<sup>3</sup>,
+[Suyang Hou](https://suyanglumiere.github.io)<sup>3</sup>,
+[Junchao Yi](https://github.com/Junc1i)<sup>4</sup>,
+[Linjie Li](https://scholar.google.com/citations?user=WR875gYAAAAJ&hl=en)<sup>5</sup>, 
+[Zhengyuan Yang](https://zyang-ur.github.io/)<sup>5</sup>, 
+[Lijuan Wang](https://www.microsoft.com/en-us/research/people/lijuanw/)<sup>5</sup>, 
+[Alex Jinpeng Wang](https://fingerrec.github.io/)<sup>3</sup><br>
+<sup>1</sup>WuHan University, <sup>2</sup>National University of Singapore, <sup>3</sup>Central South University, <sup>4</sup>University of Electronic Science and Technology of China, <sup>5</sup>Microsoft
+<br>
+[ArXiv](https://arxiv.org/abs/2512.02899) | [Homepage](https://zhuobaidong.github.io/Glance/) | [Model🤗](https://huggingface.co/CSU-JPG/Glance) | [Demo](https://348d29f48ab953c1e8.gradio.live/)
+
+<img src="assets/teaser.png" alt=""/>
+
 # Inference
 
 ### Installation
