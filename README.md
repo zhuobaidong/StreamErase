@@ -12,7 +12,9 @@ Official PyTorch implementation of the paper:
 [Yue Ma](https://mayuelala.github.io/)<sup>3</sup>,
 [Linfeng Zhang](http://www.zhanglinfeng.tech/)<sup>4</sup>,
 <br>
-<sup>1</sup>WuHan University, <sup>2</sup>Alibaba Group, <sup>3</sup>The Hong Kong University of Science and Technology, <sup>4</sup>Shanghai Jiao Tong University
+<sup>1</sup>WuHan University, <sup>2</sup>Alibaba Group, <sup>3</sup>The Hong Kong University of Science and Technology, 
+<br>
+<sup>4</sup>Shanghai Jiao Tong University
 <br>
 [ArXiv](https://arxiv.org/abs/2512.02899) | [Homepage](https://zhuobaidong.github.io/Glance/) | [Model🤗](https://huggingface.co/CSU-JPG/Glance) | [Demo](https://348d29f48ab953c1e8.gradio.live/)
 
