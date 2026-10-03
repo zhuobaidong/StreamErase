@@ -18,7 +18,7 @@ Official PyTorch implementation of the paper:
 <br>
 [ArXiv](https://arxiv.org/abs/2512.02899) | [Homepage](https://zhuobaidong.github.io/Glance/) | [Model🤗](https://huggingface.co/CSU-JPG/Glance) | [Demo](https://348d29f48ab953c1e8.gradio.live/)
 
-<img src="assets/teaser.png" alt=""/>
+<img src="assets/teaser.jpg" alt=""/>
 
 # Quick Start
 
