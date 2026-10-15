@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="description" content="StreamErase: Towards Ultra-Fast Streaming Video Erasing">
+
+  <meta property="og:title"
+        content="StreamErase: Towards Ultra-Fast Streaming Video Erasing">
+  <meta property="og:description"
+        content="StreamErase: Towards Ultra-Fast Streaming Video Erasing">
+  <meta property="og:url" content="">
+
+  <meta name="twitter:title"
+        content="StreamErase: Towards Ultra-Fast Streaming Video Erasing">
+  <meta name="twitter:description"
+        content="StreamErase: Towards Ultra-Fast Streaming Video Erasing">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>
+    StreamErase: Towards Ultra-Fast Streaming Video Erasing
+  </title>
+
+  <!-- =========================
+       Existing CSS
+  ========================== -->
+
+  <link href="./static/css/css" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="./static/css/bulma.min.css">
+
+  <link rel="stylesheet"
+        href="./static/css/bulma-carousel.min.css">
+
+  <link rel="stylesheet"
+        href="./static/css/bulma-slider.min.css">
+
+  <link rel="stylesheet"
+        href="./static/css/fontawesome.all.min.css">
+
+  <link rel="stylesheet"
+        href="./static/css/academicons.min.css">
+
+  <link rel="stylesheet"
+        href="./static/css/index.css">
+
+  <link rel="stylesheet"
+        href="./static/css/others.css">
+
+
+  <!-- =========================
+       Existing JS
+  ========================== -->
+
+  <script src="./static/js/jquery.min.js"></script>
+  <script src="./static/js/main.js"></script>
+  <script src="./static/js/ViewSDKInterface.js"></script>
+
+  <script defer
+          src="./static/js/fontawesome.all.min.js"></script>
+
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+
+  <!-- =========================================================
+       Custom CSS
+  ========================================================== -->
+
+  <style>
+    .title-wrapper { display:flex; align-items:center; gap:10px; margin-top:30px; margin-bottom:10px; }
+    .fancy-title { font-size:36px; font-weight:700; }
+
+    .video-comparison-section { padding:3rem 1.25rem; background:#fff; }
+    .video-comparison-container { width:100%; max-width:1200px; margin:0 auto; }
+    .video-comparison-title { text-align:center; font-size:2rem; font-weight:700; margin-bottom:.8rem; color:#222; }
+    .video-comparison-description { text-align:center; color:#666; font-size:1rem; margin-bottom:2rem; }
+    .comparison-subtitle { font-size:1.45rem; font-weight:700; color:#222; margin:2rem 0 1rem; }
+    .model-header-row { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; margin-bottom:12px;margin-left: auto; margin-right: auto; }
+    .model-header { text-align:center; font-size:1rem; font-weight:700; padding:10px 8px; border-radius:8px; background:#f5f5f5; color:#333; }
+    .model-header.original { background:#eeeeee; }
+    .model-header.generated { background:#eaf3ff; }
+    .video-sample { margin-bottom:24px; min-width:0; }
+    .sample-title { font-size:.95rem; font-weight:600; color:#555; margin-bottom:8px; }
+    .video-row { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; width:100%; }
+    .video-row.long-row { grid-template-columns:repeat(2,minmax(0,1fr)); max-width:800px; margin-left: auto; margin-right: auto;}
+    .video-cell { width:100%; min-width:0; }
+    .video-wrapper { position:relative; width:100%; background:#000; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.10); transition:transform .2s ease,box-shadow .2s ease; }
+    .video-wrapper:hover { transform:translateY(-2px); box-shadow:0 5px 16px rgba(0,0,0,.16); }
+    .video-wrapper video { display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:contain; background:#000; cursor:pointer; }
+    .video-loading,.video-error { width:100%; aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; text-align:center; padding:15px; background:#f3f3f3; color:#888; font-size:.9rem; }
+    .sync-status { text-align:center; font-size:.85rem; color:#888; margin-top:20px; }
+    .sync-status.active { color:#555; }
+    .video-divider { border:0; border-top:1px solid #ddd; margin:2.5rem auto; max-width:1200px; }
+    .video-control-info { text-align:center; margin-top:8px; font-size:.78rem; color:#aaa; }
+    .long-video-title {
+        text-align: center;
+        width: 100%;
+    }
+    @media screen and (max-width:900px) {
+      .video-comparison-container { padding-left:10px; padding-right:10px; }
+      .video-row { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+      .model-header-row { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+      .video-row.long-row { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+    @media screen and (max-width:520px) {
+      .video-row,.video-row.long-row { grid-template-columns:1fr; }
+      .model-header-row { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .video-comparison-title { font-size:1.7rem; }
+    }
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HERO
+========================================================== -->
+
+<section class="hero">
+
+  <div class="hero-body">
+
+    <div class="container is-max-desktop is-max-mobile">
+
+      <div class="columns is-centered">
+
+        <div class="column has-text-centered">
+
+
+          <!-- Title -->
+
+          <h1
+            class="title is-1 publication-title"
+            style="
+              font-size: 30pt;
+              line-height: 1.2;
+              color: #000000;
+              font-weight: 700;
+            "
+          >
+            StreamErase: Towards Ultra-Fast Streaming Video Erasing
+          </h1>
+
+
+          <!-- Authors -->
+
+          <div class="is-size-5 publication-authors">
+
+            <span class="author-block">
+              <a href="https://zhuobaidong.github.io/"
+                 target="_blank">
+                Zhuobai Dong
+              </a><sup>1</sup>,
+            </span>
+
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=zh-CN&user=aSqi480AAAAJ"
+                 target="_blank">
+                Xiaobing Tu
+              </a><sup>2</sup>,
+            </span>
+
+            <span class="author-block">
+              <a href="https://cn.linkedin.com/in/xiantao-zhang-66bb4317/"
+                 target="_blank">
+                Xiantao Zhang
+              </a><sup>2</sup>,
+            </span>
+
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/jack-ren-2069968/"
+                 target="_blank">
+                Jinkui Ren
+              </a><sup>2</sup>,
+            </span>
+
+            <span class="author-block">
+              <a href="https://dblp.org/pid/136/1775.html"
+                 target="_blank">
+                Yinggui Wang
+              </a><sup>2</sup>,
+            </span>
+
+            <span class="author-block">
+              <a href="https://mayuelala.github.io/"
+                 target="_blank">
+                Yue Ma
+              </a><sup>3</sup>,
+            </span>
+
+            <span class="author-block">
+              <a href="http://www.zhanglinfeng.tech/"
+                 target="_blank">
+                Linfeng Zhang
+              </a><sup>4</sup>
+            </span>
+
+          </div>
+
+
+          <!-- Affiliations -->
+
+          <div class="is-size-5 publication-authors" style="white-space: nowrap;">
+
+            <span class="author-block">
+
+              <sup>1</sup>WuHan University,
+              &nbsp;&nbsp;
+
+              <sup>2</sup>Alibaba Group,
+              &nbsp;&nbsp;
+
+              <sup>3</sup>The Hong Kong University of Science and Technology,
+
+              <br>
+
+              <sup>4</sup>Shanghai Jiao Tong University
+
+            </span>
+
+          </div>
+
+
+          &nbsp;
+
+
+          <!-- Links -->
+
+          <div class="column has-text-centered">
+
+            <div class="publication-links">
+
+
+              <!-- Paper -->
+
+              <span class="link-block">
+
+                <a
+                  href="https://arxiv.org/abs/2610.20137"
+                  class="external-link button is-normal is-rounded is-dark"
+                >
+
+                  <span class="icon">
+
+                    <i class="fas fa-file-pdf"></i>
+
+                  </span>
+
+                  <span>
+                    Paper
+                  </span>
+
+                </a>
+
+              </span>
+
+
+              &nbsp;
+
+
+              <!-- Github -->
+
+              <span class="link-block">
+
+                <a
+                  href="https://github.com/zhuobaidong/StreamErase"
+                  class="external-link button is-normal is-rounded is-dark"
+                >
+
+                  <span class="icon">
+
+                    <i class="fab fa-github"></i>
+
+                  </span>
+
+                  <span>
+                    Code
+                  </span>
+
+                </a>
+
+              </span>
+
+
+              &nbsp;
+
+
+              <!-- Hugging Face -->
+
+              <span class="link-block">
+
+                <a
+                  href="https://huggingface.co/zhuobai/StreamErase"
+                  class="external-link button is-normal is-rounded is-dark"
+                >
+
+                  <span class="icon">
+
+                    <img
+                      src="static/images/huggingface.png"
+                      alt="Hugging Face"
+                      style="
+                        height: 1em;
+                        vertical-align: middle;
+                      "
+                    >
+
+                  </span>
+
+                  <span>
+                    Model
+                  </span>
+
+                </a>
+
+              </span>
+
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     TEASER
+========================================================== -->
+
+<section class="hero teaser">
+
+  <div class="container is-max-desktop">
+
+    <div class="hero-body">
+
+      <figure class="image-container">
+
+        <div
+          class="zoomcaption"
+          style="color: #000000;"
+        >
+          Click to zoom in
+        </div>
+
+        <img
+          class="clickable-image"
+          src="./static/images/teaser.jpg"
+          style="
+            width:100%;
+            max-width:1000px;
+          "
+        >
+
+        <figcaption>
+
+          <br>
+
+          Prior video diffusion erasing models typically operate offline to generate fixed-length sequences in parallel (top left). 
+          In contrast, our StreamErase enables streaming long-video generation (bottom left), supporting real-time erasing at 26.06 FPS with 0.87s latency (right).
+
+        </figcaption>
+
+      </figure>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SYNCHRONIZED VIDEO COMPARISON
+========================================================== -->
+
+<section class="video-comparison-section">
+
+  <div class="video-comparison-container">
+
+
+    <!-- Section title -->
+
+    <h2 class="video-comparison-title">
+      Qualitative Comparison
+    </h2>
+
+
+    <p class="video-comparison-description">
+      Removed results comparison with background video
+    </p>
+
+
+    <h3 class="comparison-subtitle">Short Videos</h3>
+    <div class="model-header-row">
+      <div class="model-header original">Original Video</div>
+      <div class="model-header generated">StreamErase</div>
+      <div class="model-header original">Original Video</div>
+      <div class="model-header generated">StreamErase</div>
+    </div>
+    <div id="short-video-list">
+      <div class="video-loading">Loading short videos...</div>
+    </div>
+
+    <hr class="video-divider">
+
+    <h3 class="comparison-subtitle">Long Videos</h3>
+    <div class="model-header-row" style="grid-template-columns:repeat(2,minmax(0,1fr)); max-width:800px;">
+      <div class="model-header original">Original Video</div>
+      <div class="model-header generated">StreamErase</div>
+    </div>
+    <div id="long-video-list">
+      <div class="video-loading">Loading long videos...</div>
+    </div>
+
+    <div id="sync-status" class="sync-status">Loading video comparisons...</div>
+    <div class="video-control-info">
+      Videos are synchronized within each original/generated pair. Play, pause, or seek either video to compare them.
+    </div>
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     BIBTEX
+========================================================== -->
+
+<section
+  class="section hero is-light"
+  style="
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  "
+>
+
+  <div class="container">
+
+    <div class="columns is-centered">
+
+      <div class="column is-full">
+
+        <div class="content has-text-centered">
+
+          <h2 class="title is-4">
+            BibTeX
+          </h2>
+
+
+          <div
+            class="bibtex-container"
+            style="
+              background-color: #f5f5f5;
+              padding: 1.5rem;
+              border-radius: 8px;
+              display: inline-block;
+              text-align: left;
+              font-size: 1rem;
+              overflow-x: auto;
+              width: 100%;
+              max-width: 800px;
+              margin: 0 auto;
+            "
+          >
+
+<pre
+  id="bibtex-content"
+  class="is-family-monospace"
+  style="margin: 0;"
+>@misc{dong2026streameraseultrafaststreamingvideo,
+      title={StreamErase: Towards Ultra-Fast Streaming Video Erasing}, 
+      author={Zhuobai Dong and Xiaobing Tu and Xiantao Zhang and Jinkui Ren and Yinggui Wang and Yue Ma and Linfeng Zhang},
+      year={2026},
+      eprint={2610.20137},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2610.20137}, 
+}</pre>
+
+
+            <button
+              onclick="copyBibtex()"
+              style="
+                margin-top: 1rem;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.875rem;
+              "
+            >
+              Copy
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================== -->
+
+<footer class="footer">
+
+  <div class="container">
+
+    <div class="columns is-centered">
+
+      <div class="column is-8">
+
+        <div class="content">
+
+          <p>
+
+            This page was built using the
+            <a
+              href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+              target="_blank"
+            >
+              Academic Project Page Template
+            </a>
+
+            which was adopted from the
+            <a
+              href="https://nerfies.github.io/"
+              target="_blank"
+            >
+              Nerfies
+            </a>
+            project page.
+
+            You are free to borrow the source code,
+            we just ask that you link back to this page
+            in the footer.
+
+            <br>
+
+            This website is licensed under the
+            <a
+              rel="license"
+              href="http://creativecommons.org/licenses/by-sa/4.0/"
+              target="_blank"
+            >
+              Creative Commons Attribution-ShareAlike
+              4.0 International License
+            </a>.
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     VIDEO SYNCHRONIZATION JAVASCRIPT
+========================================================== -->
+
+<script>
+  const VIDEO_ROOT = "./static/videos/";
+  const VIDEO_EXTENSIONS = [".mp4", ".webm", ".mov", ".m4v"];
+
+  // Each row contains two short-video comparisons; long videos use one pair per row.
+  const SHORT_FILES = ["video1", "video2", "video3", "video4", "video5", "video6"];
+  const LONG_FILES = ["video1", "video2", "video3"];
+
+  const allVideos = [];
+  const syncGroups = [];
+
+  function getVideoURL(folder, stem) {
+    // Change the extension here if your files do not use .mp4.
+    return VIDEO_ROOT + encodeURIComponent(folder) + "/" + encodeURIComponent(stem + ".mp4");
+  }
+
+  function createVideo(folder, stem, label) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "video-wrapper";
+    const video = document.createElement("video");
+    video.src = getVideoURL(folder, stem);
+    video.controls = true;
+    video.preload = "metadata";
+    video.playsInline = true;
+    video.setAttribute("webkit-playsinline", "");
+    video.loop = true;
+    video.muted = true;
+    video.dataset.folder = folder;
+    video.dataset.filename = stem;
+    video.setAttribute("aria-label", label + " " + stem);
+    video.addEventListener("error", () => {
+      console.error("Unable to load video:", video.src);
+    });
+    wrapper.appendChild(video);
+    allVideos.push(video);
+    return { wrapper, video };
+  }
+
+  function attachPairSync(original, generated) {
+    const pair = [original, generated];
+    syncGroups.push(pair);
+    let syncing = false;
+    let seeking = false;
+
+    function syncFrom(source, action) {
+      if (syncing) return;
+      syncing = true;
+      pair.forEach(target => {
+        if (target === source) return;
+        try {
+          if (action === "play") {
+            const promise = target.play();
+            if (promise && promise.catch) promise.catch(() => {});
+          } else if (action === "pause") {
+            target.pause();
+          } else if (action === "seek") {
+            if (Number.isFinite(source.currentTime)) target.currentTime = source.currentTime;
+          }
+        } catch (error) {
+          console.warn("Video synchronization issue:", error);
+        }
+      });
+      setTimeout(() => { syncing = false; }, 80);
+    }
+
+    pair.forEach(video => {
+      video.addEventListener("play", () => syncFrom(video, "play"));
+      video.addEventListener("pause", () => syncFrom(video, "pause"));
+      video.addEventListener("seeking", () => { seeking = true; });
+      video.addEventListener("seeked", () => {
+        seeking = false;
+        syncFrom(video, "seek");
+      });
+      video.addEventListener("timeupdate", () => {
+        if (syncing || seeking) return;
+        const other = pair.find(item => item !== video);
+        if (!other || other.readyState < 2 || other.seeking) return;
+        if (Math.abs(other.currentTime - video.currentTime) > 0.15) {
+          syncing = true;
+          try { other.currentTime = video.currentTime; } catch (error) {}
+          setTimeout(() => { syncing = false; }, 80);
+        }
+      });
+    });
+  }
+
+  function createCell(folder, stem, label) {
+    const cell = document.createElement("div");
+    cell.className = "video-cell";
+    const item = createVideo(folder, stem, label);
+    cell.appendChild(item.wrapper);
+    return { cell, video: item.video };
+  }
+
+  function createComparisonRow(stem, sampleIndex, isLong) {
+    const sample = document.createElement("div");
+    sample.className = "video-sample";
+
+    const title = document.createElement("div");
+    // title.className = "sample-title";
+    title.className = isLong ? "sample-title long-video-title" : "sample-title";
+    title.textContent = stem.replace("video", "Video ");
+    sample.appendChild(title);
+
+    const row = document.createElement("div");
+    row.className = "video-row" + (isLong ? " long-row" : "");
+
+    const original = createCell(isLong ? "Long_Demo_BG" : "Demo_BG", stem, "Original video");
+    const generated = createCell(isLong ? "Long_Demo" : "Demo", stem, "StreamErase generated video");
+    row.appendChild(original.cell);
+    row.appendChild(generated.cell);
+    attachPairSync(original.video, generated.video);
+    sample.appendChild(row);
+    return sample;
+  }
+
+  function createShortRow(firstStem, secondStem, rowIndex) {
+    const sample = document.createElement("div");
+    sample.className = "video-sample";
+    const title = document.createElement("div");
+    title.className = "sample-title";
+    title.textContent = "Short video comparisons " + (rowIndex + 1);
+    sample.appendChild(title);
+
+    const row = document.createElement("div");
+    row.className = "video-row";
+
+    [firstStem, secondStem].forEach(stem => {
+      const original = createCell("Demo_BG", stem, "Original video");
+      const generated = createCell("Demo", stem, "StreamErase generated video");
+      row.appendChild(original.cell);
+      row.appendChild(generated.cell);
+      attachPairSync(original.video, generated.video);
+    });
+    sample.appendChild(row);
+    return sample;
+  }
+
+  function setError(container, message) {
+    container.innerHTML = "";
+    const error = document.createElement("div");
+    error.className = "video-error";
+    error.textContent = message;
+    container.appendChild(error);
+  }
+
+  function loadVideoComparison() {
+    const shortContainer = document.getElementById("short-video-list");
+    const longContainer = document.getElementById("long-video-list");
+    const status = document.getElementById("sync-status");
+
+    try {
+      shortContainer.innerHTML = "";
+      for (let i = 0; i < SHORT_FILES.length; i += 2) {
+        shortContainer.appendChild(createShortRow(SHORT_FILES[i], SHORT_FILES[i + 1], i / 2));
+      }
+
+      longContainer.innerHTML = "";
+      LONG_FILES.forEach((stem, index) => {
+        longContainer.appendChild(createComparisonRow(stem, index, true));
+      });
+
+      status.textContent = "6 short videos and 3 long videos loaded. Playback is synchronized within each comparison pair.";
+
+      // Attempt muted autoplay; browsers may block it until user interaction.
+      setTimeout(() => {
+        allVideos.forEach(video => {
+          const promise = video.play();
+          if (promise && promise.catch) promise.catch(() => {});
+        });
+      }, 300);
+    } catch (error) {
+      console.error("Failed to build video comparisons:", error);
+      setError(shortContainer, "Unable to build the video comparison. Please check the page JavaScript.");
+      setError(longContainer, "Unable to build the video comparison. Please check the page JavaScript.");
+      status.textContent = "Unable to load video comparisons.";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", loadVideoComparison);
+
+  function copyBibtex() {
+    const bibtex = document.getElementById("bibtex-content").innerText;
+    navigator.clipboard.writeText(bibtex).then(() => alert("BibTeX copied to clipboard!"));
+  }
+</script>
+
+
+</body>
+
+</html>

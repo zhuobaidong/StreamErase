@@ -1,0 +1,45 @@
+.slider-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* 화면 폭의 50% */
+  margin: 0 auto; /* 수평 가운데 정렬 */
+  overflow: hidden; /* 이미지가 컨테이너를 넘어가지 않도록 설정 */
+}
+
+#slider-image {
+  width: 80%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.7);
+  font-size: 2em;
+  cursor: pointer;
+  color: #333;
+  z-index: 10;
+}
+
+.slider-button:hover {
+  background-color: rgb(212, 212, 212);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.slider-button:hover {
+  background-color: rgb(212, 212, 212);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.left-button {
+  left: 0%;
+}
+
+.right-button {
+  right: 0%;
+}

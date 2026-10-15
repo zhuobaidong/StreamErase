@@ -1,0 +1,147 @@
+.alarm{
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 500;
+  color: red;
+  font-size: 15pt;
+  margin-top: 0px;
+  margin-bottom: 30px;
+}
+
+.emoji-image {
+  display: inline-block; /* Ensure it stays inline */
+  vertical-align: middle; /* Align it vertically to the text */
+  margin: 0 -20px;
+  margin-top: -40px; /* Push it down slightly */
+  height: 150px; /* Adjust the size if necessary */
+  width: auto
+}
+
+.emoji-content {
+  display: inline-block; /* Ensure it stays inline */
+  vertical-align: middle; /* Align it vertically to the text */
+  margin: 0 -5px;
+  margin-top: -4px; /* Push it down slightly */
+  height: 40px; /* Adjust the size if necessary */
+  width: 40px;
+}
+
+/* Add spacing and alignment for logos */
+.logos {
+  text-align: center; /* Center the logos */
+  margin-bottom: 30px;
+}
+
+.logos img {
+  margin: 0px auto; /* Add spacing between the logos */
+  vertical-align: middle; /* Align them vertically */
+  margin-bottom: -15px;
+}
+
+/* NVIDIA logo styling */
+.nvidia-logo {
+  width: 250px; /* Set NVIDIA logo width */
+  height: 140px; /* Maintain aspect ratio */
+}
+
+.yonsei-logo {
+  width: 185px;
+  height: 90px;
+}
+
+.image-container {
+  text-align: center;
+  margin: 20px auto;
+  max-width: 100%;
+  }
+  
+
+/* Caption styling */
+figcaption {
+  text-align: justify;
+  font-size: 1rem;
+  color: #555;
+  margin-top: 5px;
+  }
+  
+
+/* Caption styling */
+.zoomcaption {
+  text-align: center;
+  font-family: 'Google Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #F57C8E;
+  margin-bottom: 20px;
+  }
+
+  /* Image styling */
+.clickable-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px 3px #00000030;
+  cursor: pointer; /* Indicate it's clickable */
+  transition: transform 0.3s ease; /* Optional hover effect */
+  }
+  
+  .clickable-image:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+  }
+
+.static-image {
+  max-width: 100%;
+  height: auto;
+  }
+
+.static-image-small {
+  max-width: 83%;
+  height: auto;
+  }
+
+  /* Full-screen modal */
+.fullscreen-modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Dark background */
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .fullscreen-modal img {
+  max-width: 100%;
+  max-height: 100%;
+  box-shadow: 0px 0px 10px #fff;
+  border-radius: 0;
+  }
+
+  /* Close button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  }
+
+
+strong{
+  font-size: larger;
+  color: #76b900 !important;
+}
+
+.content a{
+  color: hsl(204, 86%, 53%) !important;
+  font-style: italic;
+}
+
+.content a:hover {
+  color: hsl(204, 86%, 53%) !important;
+  text-decoration: underline;
+  font-style: italic;
+}
