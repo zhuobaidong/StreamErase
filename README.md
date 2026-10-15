@@ -18,12 +18,9 @@ Official PyTorch implementation of the paper:
 <br>
 [ArXiv](https://arxiv.org/abs/2610.20137) | [Homepage](https://zhuobaidong.github.io/StreamErase/) | [Model🤗](https://huggingface.co/zhuobai/StreamErase)
 
-<img src="assets/teaser.jpg" alt=""/>
+<!-- <img src="assets/teaser.jpg" alt=""/> -->
 
-<!-- <video width="100%" controls playsinline preload="metadata">
-  <source src="assets/demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video> -->
+https://github.com/zhuobaidong/StreamErase/issues/1#issue-5859322917
 
 # Quick Start
 
