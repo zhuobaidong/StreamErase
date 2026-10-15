@@ -20,7 +20,7 @@ Official PyTorch implementation of the paper:
 
 <!-- <img src="assets/teaser.jpg" alt=""/> -->
 
-https://github.com/zhuobaidong/StreamErase/issues/1#issue-5859322917
+https://github.com/user-attachments/assets/4937b1ec-3a96-4f04-b278-98a00c276cf6
 
 # Quick Start
 
