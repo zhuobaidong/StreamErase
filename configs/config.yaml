@@ -1,0 +1,3 @@
+denoising_step_list:
+- 1000
+warp_denoising_step: true # need to remove - 0 in denoising_step_list if warp_denoising_step is true
